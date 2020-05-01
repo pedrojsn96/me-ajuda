@@ -4,13 +4,25 @@ import {FlatList, Linking, SafeAreaView, StyleSheet, Text, View} from 'react-nat
 import React, { useEffect, useState } from 'react';
 
 import Api from '../services/Api';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeReduxCity, changeReduxState }  from "../reducers/region/action";
 
-const Help = () => {
+const Help_func = (props) => {
     const [people, setPeople] = useState([]);
+    const [ref, setRef] = useState(false)
 
     const getPeople = async () => {
-        const response = await Api.get('/ajuda');
+        setRef(true)
+        setPeople([])
+        var response;
+        if(props.regionState.state!="" && props.regionState.city !=""){
+            response = await Api.get(`/ajuda/regiao/${props.regionState.state}/${props.regionState.city}`);
+        }else{
+            response = await Api.get(`/ajuda`);
+        }
         setPeople(response.data);
+        setRef(false)
     }
 
     const handleHelp = (person) => {
@@ -41,6 +53,8 @@ const Help = () => {
                         </Card>
                     </View>
                 }
+                onRefresh={()=>{getPeople()}}
+                refreshing={ref}
                 keyExtractor={item => item._id}
             />
         </SafeAreaView>
@@ -55,10 +69,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     cardTitleStyle: {
-        alignSelf:'flex-start'
+        alignSelf:'flex-start',
+        color:'black',
+        fontWeight:"bold"
     },
     subtitle:{
         fontSize:16,
+        color:'black',
         marginBottom:5
     },
     button: {
@@ -70,5 +87,13 @@ const styles = StyleSheet.create({
         alignSelf:'flex-end'
     },
 });
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changeReduxCity, changeReduxState
+}, dispatch)
+const mapStateToProps = state => ({
+    regionState: state.regionState
+});
+const Help = connect(mapStateToProps,mapDispatchToProps)(Help_func);
 
 export default Help;

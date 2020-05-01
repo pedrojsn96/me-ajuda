@@ -1,42 +1,23 @@
 import { Button, Input } from 'react-native-elements';
 import {Picker} from '@react-native-community/picker';
-import { View, Image, KeyboardAvoidingView, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Image, KeyboardAvoidingView, ScrollView, StyleSheet, TouchableOpacity, Alert, Text } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeReduxCity, changeReduxState }  from "../reducers/region/action";
 
-import Api from '../services/Api';
 
 const Estados_cidade = require('../assets/others/estados-cidades.json')
 
-const RequestHelp = () => {
-    const [fullName, setFullName] = useState('');
+const Setting_func = (props) => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
-    const [street, setStreet] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [description, setDescription] = useState('');
     const [cities, setCities] = useState([]);
     const [states, setStates] = useState([]);
-    
+
     useEffect(() => {
         setStates(Estados_cidade.estados)
     }, []);
-
-    const handleSubmit = () => {
-        if(fullName!="" && city!="" && state!="" && phoneNumber!="" && description!=""){
-            const data = {
-                nome: fullName,
-                cidade: city,
-                estado: state,
-                contato: phoneNumber,
-                logradouro: street,
-                descricao: description,
-            };
-
-            Api.post('/ajuda', data).catch(() => {});
-        }else{
-            Alert.alert("Campos Vazios", "Preencha todos os campos requeridos para realizar o pedido de ajuda.")
-        }
-    }
 
     return (
         <KeyboardAvoidingView style={styles.container} enabled >
@@ -45,17 +26,16 @@ const RequestHelp = () => {
                     style={styles.logo}
                     source={require('../assets/img/g3925.png')}
                 />
-                <Input
-                    placeholder="Nome Completo"
-                    onChangeText={setFullName}
-                />
+                <Text style={{fontSize:18, color:"#6cd9ca", fontWeight:'bold'}}>Informe a região que pretende oferecer ajuda:</Text>
                 <View style={{flexDirection:'row'}}>
                     <Picker
-                        selectedValue={state}
+                        selectedValue={props.regionState.state}
                         style={{flex:1}}
                         onValueChange={(itemValue, itemIndex) =>{
-                            setState(itemValue)
-                            setCities(states[itemIndex-1].cidades)
+                            props.changeReduxState(itemValue);
+                            if(itemIndex>0){
+                                setCities(states[itemIndex-1].cidades);
+                            }
                         }}
                     >
                         <Picker.Item label={"Escolha um estado"} value={""} color="grey" />
@@ -64,11 +44,11 @@ const RequestHelp = () => {
                         )}
                     </Picker>
                     <Picker
-                        selectedValue={city}
+                        selectedValue={props.regionState.city}
                         style={{flex:1}}
-                        enabled={state!=""}
+                        enabled={props.regionState.state!=""}
                         onValueChange={(itemValue, itemIndex) =>{
-                            setCity(itemValue)
+                            props.changeReduxCity(itemValue);
                         }}
                     >
                         <Picker.Item label={"Escolha uma cidade"} value={""} color="grey" />
@@ -77,26 +57,10 @@ const RequestHelp = () => {
                         )}
                     </Picker>
                 </View>
-                <Input
-                    placeholder="Rua (opcional)"
-                    onChangeText={setStreet}
-                />
-                <Input
-                    placeholder="Telefone pra contato"
-                    onChangeText={setPhoneNumber}
-                />
-                <Input
-                    multiline={true}
-                    numberOfLines={2}
-                    placeholder="Como preciso ser ajudado..."
-                    onChangeText={setDescription}
-                />
-                <TouchableOpacity >
-                    <Button title="Me Ajuda" onPress={handleSubmit} buttonStyle={styles.button} />
-                </TouchableOpacity>
             </ScrollView>
         </KeyboardAvoidingView>
     )
+
 }
 
 const styles = StyleSheet.create({
@@ -119,6 +83,11 @@ const styles = StyleSheet.create({
         backgroundColor:"#6cd9ca",
     }
 });
-
-
-export default RequestHelp;
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changeReduxCity, changeReduxState
+}, dispatch)
+const mapStateToProps = state => ({
+    regionState: state.regionState
+});
+const Setting = connect(mapStateToProps,mapDispatchToProps)(Setting_func);
+export default Setting;

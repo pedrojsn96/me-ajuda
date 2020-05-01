@@ -4,6 +4,8 @@ import React from 'react';
 import RequestHelp from './screens/RequestHelp';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Setting from './screens/Setting';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +36,15 @@ const Router = () => {
               <Icon name="hand-holding-heart" color={color} size={size} />
             )
           }}/>
+        <Tab.Screen
+            name="Setting"
+            component={Setting} 
+            options={{
+              tabBarLabel: 'Configuração',
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="md-settings" color={color} size={size} />
+              )
+            }}/>
       </Tab.Navigator>
     </NavigationContainer>
   );

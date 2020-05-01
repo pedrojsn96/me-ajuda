@@ -87,6 +87,8 @@ target 'MeAjuda' do
 
   pod 'RNCMaskedView', :path => '../node_modules/@react-native-community/masked-view'
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
+
   target 'MeAjudaTests' do
     inherit! :complete
     # Pods for testing
