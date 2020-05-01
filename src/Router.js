@@ -20,7 +20,7 @@ const Router = () => {
           name="Pedir Ajuda" 
           component={RequestHelp} 
           options={{
-            tabBarLabel: 'Me Ajude',
+            tabBarLabel: 'Me Ajuda',
             tabBarIcon: ({ color, size }) => (
               <Icon name="hands" color={color} size={size} />
             )
