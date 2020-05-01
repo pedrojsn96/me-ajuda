@@ -28,7 +28,7 @@ const RequestHelp = () => {
             <ScrollView styles={styles.content}>
                 <Image
                     style={styles.logo}
-                    source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+                    source={require('../assets/img/g3925.png')}
                 />
                 <Input
                     placeholder="Nome Completo"
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: 120,
-        height: 120,
+        height: 122,
         alignSelf: 'center',
         marginTop: 15,
         marginBottom: 15,
