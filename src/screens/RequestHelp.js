@@ -1,13 +1,76 @@
-import {Text, View} from 'react-native';
+import { Button, Input } from 'react-native-elements';
+import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 
-import React from 'react';
+import Api from '../services/Api';
 
 const RequestHelp = () => {
+    const [fullName, setFullName] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [description, setDescription] = useState('');
+    
+    const handleSubmit = () => {
+        const data = {
+            nome: fullName,
+            cidade: city,
+            estado: state,
+            contato: phoneNumber,
+            descricao: 'descricao',
+        };
+
+        Api.post('/ajuda', data).catch(() => {});
+    }
+
     return (
-        <View>
-            <Text>RequestHelp</Text>
-        </View>
+        <KeyboardAvoidingView style={styles.container} enabled >
+            <ScrollView styles={styles.content}>
+                <Image
+                    style={styles.logo}
+                    source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+                />
+                <Input
+                    placeholder="Nome Completo"
+                    onChangeText={setFullName}
+                />
+                <Input
+                    placeholder="Cidade"
+                    onChangeText={setCity}
+                />
+                <Input
+                    placeholder="Estado"
+                    onChangeText={setState}
+                />
+                <Input
+                    placeholder="Telefone pra contato"
+                    onChangeText={setPhoneNumber}
+                />
+                <TouchableOpacity >
+                    <Button title="Me Ajuda" onPress={handleSubmit} />
+                </TouchableOpacity>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 10,
+    },
+    content: {
+        flex: 1,
+        padding: 50,
+    },
+    logo: {
+        width: 120,
+        height: 120,
+        alignSelf: 'center',
+        marginTop: 15,
+        marginBottom: 15,
+    },
+});
+
 
 export default RequestHelp;
