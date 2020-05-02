@@ -89,6 +89,12 @@ target 'MeAjuda' do
 
   pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
 
+  pod 'lottie-ios', :path => '../node_modules/lottie-ios'
+
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
+  pod 'react-native-text-input-mask', :path => '../node_modules/react-native-text-input-mask'
+
   target 'MeAjudaTests' do
     inherit! :complete
     # Pods for testing
