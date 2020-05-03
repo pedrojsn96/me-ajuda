@@ -88,7 +88,7 @@ const Help_func = (props) => {
 
     const handleHelp = (person) => {
         const text = `Olá ${person.nome}, encontrei você no aplicativo MeAjude.`
-        const phoneNumber = `+55 ${person.contato}`;
+        const phoneNumber = `${person.contato}`;
         Linking.openURL(`whatsapp://send?text=${text}&phone=${phoneNumber}`)
          .catch(Linking.openURL('https://www.whatsapp.com/'));
     }
