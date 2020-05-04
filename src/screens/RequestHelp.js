@@ -135,7 +135,7 @@ const RequestHelp = () => {
                             style={{flex:1}}
                             onValueChange={(itemValue, itemIndex) =>{
                                 setState(itemValue)
-                                if(state!=""){
+                                if(itemValue!=""){
                                     setCities(states[itemIndex-1].cidades)
                                 }
                             }}
