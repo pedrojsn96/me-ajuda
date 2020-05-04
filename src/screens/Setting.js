@@ -56,19 +56,27 @@ const Setting_func = (props) => {
         })
         .catch(()=>{})
     }
+    const handlePressTouch = () =>{
+
+        setModalVisibleAjuda(false)
+        setModalVisibleSearch(false)
+        setAbleSearch(true)
+        setAbleSearch(true)
+    }
 
     return (
         <KeyboardAvoidingView style={styles.container} enabled >
             <Modal
-                animationType="fade"
+                animationType="none"
                 transparent={true}
                 visible={modalVisibleSearch}
                 onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
                 }}
             >
-                <View style={{flex:1, justifyContent:'center', backgroundColor:"rgba(0,0,0,0.3)"}}>
-                    <Card title="CHAVE DE PEDIDO">
+                <View style={{flex:1, justifyContent:"center"}}>
+                    <TouchableOpacity onPress={() => handlePressTouch()}  style={{flex:1, backgroundColor:"rgba(0,0,0,0.3)"}}>
+                    </TouchableOpacity>
+                    <Card title="CHAVE DE PEDIDO" containerStyle={{position:"absolute", width:'90%', alignSelf:'center'}}>
                         <Input
                             placeholder="Informe a chave do seu pedido"
                             onChangeText={setChave}
@@ -78,15 +86,16 @@ const Setting_func = (props) => {
                 </View>
             </Modal>
             <Modal
-                animationType="fade"
+                animationType="none"
                 transparent={true}
                 visible={modalVisibleAjuda}
                 onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
                 }}
             >
-                <View style={{flex:1, justifyContent:'center', backgroundColor:"rgba(0,0,0,0.3)"}}>
-                    <Card title={`${ajuda.nome}, ${ajuda.contato}`}  titleStyle={styles.cardTitleStyle} style={styles.card}>
+
+                <View style={{flex:1, justifyContent:"center"}}>
+                    <TouchableOpacity onPress={() => handlePressTouch()} style={{flex:1,backgroundColor:"rgba(0,0,0,0.3)"}}/>
+                    <Card title={`${ajuda.nome}, ${ajuda.contato}`}  titleStyle={styles.cardTitleStyle} style={styles.card}  containerStyle={{position:"absolute", width:'90%', alignSelf:'center'}}>
                         <Text style={styles.subtitle}>{ajuda.cidade} - {ajuda.estado}</Text>
                         <Text style={{marginBottom: 10}}>{ajuda.descricao}</Text>
                         <Button disabled={!ableFinish} title="CONCLUIR AJUDA" buttonStyle={styles.button} onPress={()=>handleFinishHelp()}/>
