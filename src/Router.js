@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Setting from './screens/Setting';
+import Home from './screens/home';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,18 +14,18 @@ const Router = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator 
-        initialRouteName="Pedir Ajuda" 
+        initialRouteName="inicio" 
         tabBarOptions={{
           activeBackgroundColor: "#6cd9ca",
           activeTintColor: "white"
         }}>
         <Tab.Screen 
-          name="Pedir Ajuda" 
-          component={RequestHelp} 
+          name="inicio" 
+          component={Home} 
           options={{
-            tabBarLabel: 'Me Ajuda',
+            tabBarLabel: 'Inicio',
             tabBarIcon: ({ color, size }) => (
-              <Icon name="hands" color={color} size={size} />
+              <Icon name="home" color={color} size={size} />
             )
           }} />
         <Tab.Screen
@@ -36,6 +37,15 @@ const Router = () => {
               <Icon name="hand-holding-heart" color={color} size={size} />
             )
           }}/>
+        <Tab.Screen 
+          name="Pedir Ajuda" 
+          component={RequestHelp} 
+          options={{
+            tabBarLabel: 'Me Ajuda',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="hands" color={color} size={size} />
+            )
+          }} />
         <Tab.Screen
             name="Setting"
             component={Setting} 

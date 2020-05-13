@@ -74,6 +74,11 @@ const RequestHelp = () => {
         setState("")
         setStreet("")
     }
+    const setDescription_lenght = (text) => {
+        if(text.length < 250){
+            setDescription(text)
+        }
+    }
 
     const createKey = async() =>{
         var key = "";
@@ -173,8 +178,10 @@ const RequestHelp = () => {
                         multiline={true}
                         numberOfLines={2}
                         placeholder="Como preciso ser ajudado..."
-                        onChangeText={setDescription}
+                        value={description}
+                        onChangeText={setDescription_lenght}
                     />
+                    <Text style={{fontSize:12, textAlign:'right', marginRight:10}}>{description.length}/250</Text>
                     <TouchableOpacity >
                         <Button title="Me Ajuda" onPress={handleSubmit} buttonStyle={styles.button} />
                     </TouchableOpacity>
