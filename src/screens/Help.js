@@ -102,7 +102,7 @@ const Help_func = (props) => {
             <FlatList
                 data={people}
                 renderItem={({ item }) =>
-                    <Card title={`${item.nome}, ${item.contato}`}  titleStyle={styles.cardTitleStyle} style={styles.card}>
+                    <Card title={`${item.nome}`}  titleStyle={styles.cardTitleStyle} style={styles.card}>
                         <Text style={styles.subtitle}>{item.cidade} - {item.estado}</Text>
                         <Text style={{marginBottom: 10}}>{item.descricao}</Text>
                         <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>

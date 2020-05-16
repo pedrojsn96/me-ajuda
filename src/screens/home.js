@@ -18,7 +18,7 @@ const Home_func = (props) => {
                     style={styles.logo}
                     source={require('../assets/img/g3925.png')}
                 />
-                <Text style={[styles.text_title]}>Bem vindo (a) ao ao MeAjuda App: uma ferramenta para dar suporte a quem mais precisa conectando-o com quem pode ajudar.</Text>
+                <Text style={[styles.text_title]}>Bem vindo (a) ao MeAjuda App: uma ferramenta para dar suporte a quem mais precisa conectando-o com quem pode ajudar.</Text>
                 <Text style={[styles.text_description]}>A seguir uma breve descrição sobre as abas no aplicativo:</Text>
                 <View style={{alignItems:'center', width:100}}>
                     <Icon name="hand-holding-heart" color={"black"} size={30}/>
